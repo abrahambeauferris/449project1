@@ -26,18 +26,22 @@ public class Main_Algorithm {
 		}
 	}
 	
+	//calculates any hard constraints
 	public boolean hardChecker(ArrayList<Integer> a) {
 		return true;
 	}
 	
+	//used to calculate penalty of a non-full combination, only using p-values
 	public int softChecker(ArrayList<Integer> a) {
 		return 0;
 	}
 	
+	//only used to calculate final penalty of a full combination
 	public int penaltyCalc(ArrayList<Integer> a) {
 		return 0;
 	}
 	
+	//goes through a "tree" using arraylists and bounds bad subtrees
 	public void branchBound(ArrayList<Integer> a) {
 		
 		ArrayList<Integer> remaining = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5));
