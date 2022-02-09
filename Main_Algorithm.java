@@ -3,9 +3,11 @@ import java.util.Arrays;
 
 public class Main_Algorithm {
 	
+	boolean trueBest = false;
 	int currBest = 0;
 	int tasks[] = {1,2,3,4,5};
 	//int tasks[] = {1,2,3,4,5,6,7,8};
+	char taskNames[] = {'A','B','C','D','E','F','G','H'};
 	int bestMatch[] = new int[5];
 	int forcedPartial[][] = {{1,1}, {2,2}};
 	int forbiddenMachine[][] = {{1,3}, {2,1}};
@@ -32,8 +34,35 @@ public class Main_Algorithm {
 	}
 	
 	//used to calculate penalty of a non-full combination, only using p-values
-	public int softChecker(ArrayList<Integer> a) {
-		return 0;
+	public int softChecker(ArrayList<Integer> a, ArrayList<Integer> remaining) {
+		
+		int penValue = 0;
+		
+		for(int i = 0; i < a.size(); i++) {
+			penValue += pVals[i][a.get(i)];
+		}
+		
+		for(int i = 0; i < tasks.length; i++) {
+			
+			if(i >= a.size()) {
+				int lpv = 0;
+				boolean active = false;
+				for(int j = 0; j < tasks.length; j++) {
+					if(remaining.contains(j+1)) {
+						if(active == false) {
+							lpv = pVals[i][j];
+							active = true;
+						}else if(active == true) {
+							if(pVals[i][j] < lpv){
+								lpv = pVals[i][j];
+							}
+						}	
+					}
+				}
+				penValue += lpv;
+			}
+		}	
+		return penValue;
 	}
 	
 	//only used to calculate final penalty of a full combination
@@ -72,7 +101,7 @@ public class Main_Algorithm {
 						}
 					}
 				} else {
-					int thisBest = softChecker(a);
+					int thisBest = softChecker(a, remaining);
 					if(thisBest <= currBest) {
 						branchBound(combo);
 					}
