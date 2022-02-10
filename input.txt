@@ -1,0 +1,30 @@
+Name:
+Example#$%#%$#%Ns
+
+forced partial assignment:
+(1,A)
+(2,B)
+
+forbidden machine:
+(1,C)
+(2,D)
+
+
+
+too-near tasks:         
+(A,C)
+(D,B)
+
+machine penalties:
+46 87 73 60 48 85 10 40
+47 60 79 67 05 89 31 75
+41 28 68 16 18 51 71 27
+63 95 37 55 21 34 32 83
+11 20 53 40 39 06 16 82
+38 36 66 23 40 10 48 44
+13 28 75 51 67 94 61 81
+17 66 42 33 72 82 83 03
+
+too-near penalities
+(D,F,10)
+(A,F,100)
