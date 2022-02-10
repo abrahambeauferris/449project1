@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,24 +19,24 @@ public class OutputFile {
 	public void output(String outputFile, int penalty, char[] outputTasks) throws IOException {
 		
 	    try {
-	        FileWriter write = new FileWriter(outputFile);
+	        FileWriter writer = new FileWriter(outputFile);
 	        
 	        if(penalty == -1) {
-	        	write.write("No valid solution possible!");
+	        	writer.write("No valid solution possible!");
 	        }
 	        else {
-	        	write.write("Solution ");
+	        	writer.write("Solution ");
 	        	for(int i = 0; i < outputTasks.length; i++) {
 	        		if(i == outputTasks.length - 1) {
-	        			write.write(outputTasks[i]);
+	        			writer.write(outputTasks[i]);
 	        		}
 	        		else {
-	        			write.write(outputTasks[i] + " ");
+	        			writer.write(outputTasks[i] + " ");
 	        		}
 	        	}
-	        	write.write("; Quality: " + penalty);
+	        	writer.write("; Quality: " + penalty);
 	        }
-	        write.close();
+	        writer.close();
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	      }
