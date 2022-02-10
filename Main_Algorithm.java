@@ -1,25 +1,34 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main_Algorithm {
 	
 	boolean trueBest = false;
 	int currBest = 0;
-	ArrayList<Integer> tasks = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5));
-	//int tasks[] = {1,2,3,4,5,6,7,8};
+	int tasksAlt[] = {1,2,3,4,5,6,7,8};
+	ArrayList<Integer> tasks = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8));
 	char taskNames[] = {'A','B','C','D','E','F','G','H'};
-	int bestMatch[] = new int[5];
-	int forcedPartial[][] = {{1,1}, {2,2}};
-	int forbiddenMachine[][] = {{1,3}, {2,1}};
+	int bestMatch[] = new int[8];
+	int forcedPartial[][] = {{1,2}, {2,3}};
+	int forbiddenMachine[][] = {{3,3}, {4,8}};
 	int tooNearHard[][] = {{4,5}, {4,1}};
 	int tooNearSoft[][] = {{4,1,1}, {1,2,5}};
-	int pVals[][] = {
-			{0,5,10,5,15},
-			{15,0,20,5,10},
-			{10,10,5,20,5},
+	/*int pVals[][] = {
+			{10,5,10,5,15},
+			{15,11,20,5,10},
+			{0,10,5,20,5},
 			{25,10,5,5,0},
 			{5,10,15,0,5},
-	};
+	};*/
+	int pVals[][] = {{0,87,73,60,48,85,10,40},
+			 		{10,0,79,67,05,89,31,75},
+			 		{41,10,0,16,18,51,71,27},
+			 		{63,95,10,0,21,34,32,83},
+			 		{11,20,53,10,50,06,16,82},
+			 		{38,36,66,23,10,0,48,44},
+			 		{13,28,75,51,67,10,0,81},
+			 		{17,66,42,33,72,82,10,0}};
 	
 	
 	public void initalize() { 
@@ -28,14 +37,51 @@ public class Main_Algorithm {
 		for (int i = 0; i < initCombo.size(); i++) {
 			bestMatch[i] = initCombo.get(i);
 		}
-		System.out.println("First combo: " + Arrays.toString(bestMatch));
+		System.out.println("Initial combo: " + Arrays.toString(bestMatch));
 		System.out.println("with penalty: " + currBest);
 	}
 	
 	//calculates any hard constraints
 	public boolean hardChecker(ArrayList<Integer> a) {
+		
+		// Forced Partial
+		for (int i = 0; i < forcedPartial.length; i++){
+		    int machNum = forcedPartial[i][0] - 1;
+		    
+		    if (machNum < a.size()) {
+			    if (forcedPartial[i][1] != a.get(machNum)) {
+			        return false;
+			    }
+		    }
+		} 
+		
+		// Forbidden Machine
+		for (int i = 0; i < forbiddenMachine.length; i++){
+		    int machNum = forbiddenMachine[i][0] - 1;
+		    if (machNum < a.size()) {
+			    if (forbiddenMachine[i][1] == a.get(machNum)) {
+			        return false;
+			    }
+		    }
+		} 
+		
+		// too-near tasks
+		for (int i = 0; i < tooNearHard.length; i++) {
+			for (int j = 0; j < a.size(); j++) {
+				if(a.get(j) == tooNearHard[i][0]) {
+					if(j == (a.size()-1)) {
+						if (a.get(0) == tooNearHard[i][1]) {
+							return false;
+						}
+					} else if (a.get((j+1)) == tooNearHard[i][1]) {
+						return false;
+					}
+				}
+			}
+		}			
 		return true;
 	}
+		
 	
 	//used to calculate penalty of a non-full combination, only using p-values
 	public int softChecker(ArrayList<Integer> a, ArrayList<Integer> remaining) {
@@ -114,7 +160,8 @@ public class Main_Algorithm {
 			if(hardChecker(combo) == true) {
 				if (combo.size() == tasks.size()) {
 					int thisBest = penaltyCalc(combo);
-					if(thisBest <= currBest) {
+					if(thisBest <= currBest || trueBest == false) {
+						trueBest = true;
 						currBest = thisBest;
 						for(int j = 0; j < combo.size(); j++) {
 							bestMatch[j] = combo.get(j);
@@ -122,11 +169,14 @@ public class Main_Algorithm {
 					}
 				} else {
 					int thisBest = softChecker(combo, remaining);
-					if(thisBest <= currBest) {
+					if(thisBest <= currBest || trueBest == false) {
 						branchBound(combo);
 					}
 				}			
 			}
+		}
+		if(trueBest == false) {
+			System.out.println("No possible solution");
 		}
 	}
 
@@ -135,7 +185,7 @@ public class Main_Algorithm {
 		Main_Algorithm main_Algorithm = new Main_Algorithm();
 		main_Algorithm.initalize();
 		main_Algorithm.branchBound(a);
-		System.out.println("Best combo: " + Arrays.toString(main_Algorithm.bestMatch));
+		System.out.println("Best real combo: " + Arrays.toString(main_Algorithm.bestMatch));
 		System.out.println("with penalty: " + main_Algorithm.currBest);
 	}
 }
