@@ -18,7 +18,7 @@ public class Input {
   static int[][] mp1;
   static int[][] tnp1;
 
-  public static boolean inputIsValid(String inputFilename) {
+  public static boolean inputIsValid(String inputFilename) {  // print "Error while parsing input file" if false. run other tests first. run this before parseInput
     File file = new File(inputFilename);
     try {
       Scanner scan = new Scanner(file);
@@ -53,38 +53,19 @@ public class Input {
     else
       return -1;
   }
-  
-  //take the 2d array of 3 constraints in order of forced partial assignment, forbidden machine and too-near tasks.
-  public static void invalidChecker(int fpa[][], int fm[][], int tnt[][]) {
-     // fpa check
-     for (int i = 0; i < fpa.length; i++) {
-         int mach = fpa[i][0];
-         int task = fpa[i][1];
-         if (mach < 1 || mach > 8 || task == -1) {
-             System.out.println("invalid machine/task");
-             System.exit(0);
-         }
-     }
-     
-     // fm check
-     for (int i = 0; i < fm.length; i++) {
-         int mach = fm[i][0];
-         int task = fm[i][1];
-         if (mach < 1 || mach > 8 || task == -1) {
-             System.out.println("invalid machine/task");
-             System.exit(0);
-         }
-     }
-     
-     // tnt check
-     for (int i = 0; i < tnt.length; i++) {
-         int task1 = tnt[i][0];
-         int task2 = tnt[i][1];
-         if (task1 == -1 || task2 == -1) {
-             System.out.println("invalid machine/task");
-             System.exit(0);
-         }
-     }
+
+  public static boolean invalidTaskTooNearPenalties(String inputFilename) {  // print "invalid task" if true
+    File file = new File(inputFilename);
+    try {
+      Scanner scan = new Scanner(file);
+      scan.findWithinHorizon("too-near penalities", 0);
+      String match = scan.findWithinHorizon("(\\([^A-H],[A-H]|\\([^A-H],[^A-H]|\\([A-H],[^A-H])", 0);
+      scan.close();
+      return match != null;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 
   public static void parseInput(String inputFilename) {
@@ -146,9 +127,6 @@ public class Input {
       mp1 = mp.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
 
       tnp1 = tnp.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
-      
-      // check if invalid mach/task
-      invalidChecker(fp1, fm1, tnh1);
       
     } catch (FileNotFoundException e) {
       e.printStackTrace();
