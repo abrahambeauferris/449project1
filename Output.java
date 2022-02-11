@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class OutputFile {
+public class Output {
 
 	public static void main(String[] args) throws IOException {
 		
