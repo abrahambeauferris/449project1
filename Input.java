@@ -68,6 +68,35 @@ public class Input {
     return false;
   }
 
+  
+  public static boolean invalidPenalty(String inputFilename) { // print "invalid penalty" if true
+    File file = new File(inputFilename);
+    try {
+      Scanner scan = new Scanner(file);
+      scan.findWithinHorizon("machine penalties:", 0);
+      String match = scan.findWithinHorizon("(-\\d|\\.\\d)", 0);
+      scan.close();
+      return match != null;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  public static boolean hasMachinePenaltyError(String inputFilename) { // print "machine penalty error" if true
+    File file = new File(inputFilename);
+    try {
+      Scanner scan = new Scanner(file);
+      String match = scan.findWithinHorizon(
+          "machine penalties:\\s+(\\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+\\s+){8}too-near penalities", 0);
+      scan.close();
+      return match == null;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+  
   public static void parseInput(String inputFilename) {
 
     File file = new File(inputFilename);
