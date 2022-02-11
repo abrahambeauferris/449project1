@@ -38,12 +38,13 @@ public class Main_Algorithm {
 		tooNearSoft = tns;
 		pVals = mp;
 		outputFile = of;
+		Output o = new Output();
 		
 		//PA error handling
 		for (int x = 0; x<forcedPartial.length;x++) {
 			for(int j = x+1; j<forcedPartial.length; j++) {
 					if ((forcedPartial[x][0] == forcedPartial[j][0]) || forcedPartial[x][1] == forcedPartial[j][1]) {
-					System.out.println("partial assignment error");
+					o.penalty(of, "partial assignment error");
 					System.exit(0);
 				}
 			}
@@ -204,7 +205,7 @@ public class Main_Algorithm {
 			}
 		}
 		if(trueBest == false) {
-			System.out.println("No possible solution");
+			//System.out.println("No possible solution");
 			currBest = -1;
 		}
 		conversionToChar();
