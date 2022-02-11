@@ -11,7 +11,7 @@ public class Output {
 		char taskNames[] = {'A','B','C','D','E','F','G','H'};
 
             
-		OutputFile o = new OutputFile();
+		Output o = new Output();
 		o.output(outputFileName, 5, taskNames);
 
 	}
