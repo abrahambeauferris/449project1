@@ -45,6 +45,15 @@ public class Main_Algorithm {
 				}
 			}
 		}
+		
+		//TNs error handling
+		for (int i = 0; i < tooNearSoft.length; i++) {
+			for (int j = i + 1; j < tooNearSoft.length; j++) {
+				if ((tooNearSoft[i][0] == tooNearSoft[j][0]) && (tooNearSoft[i][1] == tooNearSoft[j][1])) {
+					tooNearSoft[i][2] = 0;
+				}
+			}
+		}
 			
 		//initial value
 		ArrayList<Integer> initCombo = new ArrayList<Integer>(tasks);
