@@ -11,20 +11,15 @@ public class Main_Algorithm {
 	ArrayList<Integer> tasks = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8));
 	char taskNames[] = {'A','B','C','D','E','F','G','H'};
 	int bestMatch[] = new int[8];
-	int forcedPartial[][] = {{1,2}, {2,3}};
-	int forbiddenMachine[][] = {{3,3}, {4,8}};
-	int tooNearHard[][] = {{4,5}, {4,1}};
-	int tooNearSoft[][] = {{4,1,1}, {1,2,5}};
 	char charBestMatch[] = new char[8];
-	String outputFile = "Outputtest.txt";
-	/*int pVals[][] = {
-			{10,5,10,5,15},
-			{15,11,20,5,10},
-			{0,10,5,20,5},
-			{25,10,5,5,0},
-			{5,10,15,0,5},
-	};*/
-	int pVals[][] = {{0,87,73,60,48,85,10,40},
+	
+	int forcedPartial[][];
+	int forbiddenMachine[][];
+	int tooNearHard[][];
+	int tooNearSoft[][];
+	String outputFile;
+	int pVals[][];
+	/*int pVals[][] = {{0,87,73,60,48,85,10,40},
 			 		{10,0,79,67,05,89,31,75},
 			 		{41,10,0,16,18,51,71,27},
 			 		{63,95,10,0,21,34,32,83},
@@ -32,9 +27,17 @@ public class Main_Algorithm {
 			 		{38,36,66,23,10,0,48,44},
 			 		{13,28,75,51,67,10,0,81},
 			 		{17,66,42,33,72,82,10,0}};
+			 		*/
 	
 	
-	public void initalize() { 
+	public void initalize(int fp[][], int fm[][], int tnh[][], int tns[][],int mp[][], String of) throws IOException { 
+		
+		forcedPartial = fp;
+		forbiddenMachine = fm;
+		tooNearHard = tnh;
+		tooNearSoft = tns;
+		pVals = mp;
+		outputFile = of;
 		
 		//PA error handling
 		for (int x = 0; x<forcedPartial.length;x++) {
@@ -58,11 +61,12 @@ public class Main_Algorithm {
 		//initial value
 		ArrayList<Integer> initCombo = new ArrayList<Integer>(tasks);
 		currBest = penaltyCalc(initCombo);
-		for (int i = 0; i < initCombo.size(); i++) {
-			bestMatch[i] = initCombo.get(i);
-		}
+		bestMatch = tasksAlt;
 		System.out.println("Initial combo: " + Arrays.toString(bestMatch));
 		System.out.println("with penalty: " + currBest);
+		
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		branchBound(a);
 	}
 	
 	//calculates any hard constraints
@@ -236,13 +240,12 @@ public class Main_Algorithm {
 			}
 		}
 	}
-
+/*
 	public static void main(String[] args) throws IOException {
-		ArrayList<Integer> a = new ArrayList<Integer>();
 		Main_Algorithm main_Algorithm = new Main_Algorithm();
 		main_Algorithm.initalize();
-		main_Algorithm.branchBound(a);
 		System.out.println("Best real combo: " + Arrays.toString(main_Algorithm.bestMatch));
 		System.out.println("with penalty: " + main_Algorithm.currBest);
 	}
+	*/
 }
