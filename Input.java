@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Input {
+public class Inout {
 
-    static ArrayList<ArrayList<Integer>> fp = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> fm = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> tnh = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> mp = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> tnp = new ArrayList<>();
+  static ArrayList<ArrayList<Integer>> fp = new ArrayList<>();
+  static ArrayList<ArrayList<Integer>> fm = new ArrayList<>();
+  static ArrayList<ArrayList<Integer>> tnh = new ArrayList<>();
+  static ArrayList<ArrayList<Integer>> mp = new ArrayList<>();
+  static ArrayList<ArrayList<Integer>> tnp = new ArrayList<>();
+
+  static int[][] fp1;
+  static int[][] fm1;
+  static int[][] tnh1;
+  static int[][] mp1;
+  static int[][] tnp1;
 
   public static boolean inputIsValid(String inputFilename) {
     File file = new File(inputFilename);
@@ -47,14 +53,14 @@ public class Input {
   }
 
   public static void parseInput(String inputFilename) {
-    
+
     File file = new File(inputFilename);
     try {
       Scanner scan = new Scanner(file);
       scan.skip("Name:\\s+[^\\s]+\\s+forced partial assignment:[ \\n\\t]+");
       scan.useDelimiter("[\\s\\(\\),\\na-z-]+");
       while (!scan.hasNext(":")) {
-       ArrayList<Integer> temp = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
         temp.add(scan.nextInt());
         temp.add(taskToInt(scan.next()));
 
@@ -95,19 +101,31 @@ public class Input {
         tnp.add(temp);
       }
       scan.close();
+
+      fp1 = fp.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+
+      fm1 = fm.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+
+      tnh1 = tnh.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+
+      mp1 = mp.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+
+      tnp1 = tnp.stream().map(l -> l.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new);
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
   }
 
   public static void main(String[] args) {
+    System.out.println(inputIsValid("input.txt"));
     parseInput("input.txt");
 
     // System.out.println("___________________________");
     // for (int i = 0; i < tnp.size(); i++) {
-    //   for (int j = 0; j < tnp.get(i).size(); j++) {
-    //     System.out.println(tnp.get(i).get(j));
-    //   }
+    // for (int j = 0; j < tnp.get(i).size(); j++) {
+    // System.out.println(tnp1[i][j]);
+    // }
     // }
   }
 
