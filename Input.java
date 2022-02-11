@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Inout {
+public class Input {
 
   static ArrayList<ArrayList<Integer>> fp = new ArrayList<>();
   static ArrayList<ArrayList<Integer>> fm = new ArrayList<>();
