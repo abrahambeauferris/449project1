@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -176,25 +177,31 @@ public class Input {
     }
   }
 
-  public static void main(String[] args) {
-    if (invalidTaskTooNearPenalties("input.txt")) {
-      System.out.println("Invalid task");
+  public static void main(String[] args) throws IOException{
+	Output o = new Output();
+    if (invalidTaskTooNearPenalties(args[0])) {
+      o.penalty(args[1],"invalid task");
       System.exit(0);
-
     }
-    if (!inputIsValid("input.txt")) {
-      System.out.println("Error while parsing input file");
+    if (invalidMachineOrTask(args[0])) {
+    	o.penalty(args[1],"invalid machine/task");
+    	System.exit(0);
+    }
+    if (invalidPenalty(args[0])) {
+    	o.penalty(args[1],"invalid penalty");
+    	System.exit(0);
+    }
+    if (hasMachinePenaltyError(args[0])) {
+    	o.penalty(args[1],"machine penalty error");
+    	System.exit(0);
+    }
+    if (!inputIsValid(args[0])) {
+      o.penalty(args[1],"Error while parsing input file");
       System.exit(0);
-
     }
-    parseInput("input.txt");
-
-    // System.out.println("___________________________");
-    // for (int i = 0; i < tnp.size(); i++) {
-    // for (int j = 0; j < tnp.get(i).size(); j++) {
-    // System.out.println(tnp1[i][j]);
-    // }
-    // }
+    parseInput(args[0]);
+    Main_Algorithm mainAlgo = new Main_Algorithm();
+    mainAlgo.initalize(fp1,fm1,tnh1,tnp1,mp1,args[1]);
   }
 
 }
