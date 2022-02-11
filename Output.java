@@ -9,11 +9,20 @@ public class Output {
 		
 		String outputFileName = args[1];
 		char taskNames[] = {'A','B','C','D','E','F','G','H'};
-
-            
+    
 		Output o = new Output();
 		o.output(outputFileName, 5, taskNames);
 
+	}
+	
+	public void penalty(String outputFile, String penaltymsg) throws IOException{
+		try {
+			FileWriter writer = new FileWriter(outputFile);
+			writer.write(penaltymsg);
+			writer.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void output(String outputFile, int penalty, char[] outputTasks) throws IOException {
