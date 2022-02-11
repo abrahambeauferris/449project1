@@ -16,13 +16,14 @@ public class hardConstCheckerTest {
 		
 		// Error Handling
 		
-		for (int x = 1; x<=list.length-1;x++) {
-			if (list[x] == list[0]) {
+		for (int x = 1; x<forcedPartial.length;x++) {
+			if ((forcedPartial[0][0] == forcedPartial[x][0]) || 
+				forcedPartial[0][1] == forcedPartial[x][1]) {
 				System.out.println("partial assignment error");
 				return false;
 				
 			}
-		}
+		
 		
 		// Forced Partial Assignment
 		for (int i = 0; i < forcedPartial.length; i++){
