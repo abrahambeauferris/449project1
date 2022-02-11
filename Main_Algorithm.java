@@ -1,3 +1,4 @@
+package input;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Main_Algorithm {
 	int forbiddenMachine[][] = {{3,3}, {4,8}};
 	int tooNearHard[][] = {{4,5}, {4,1}};
 	int tooNearSoft[][] = {{4,1,1}, {1,2,5}};
+	char charBestMatch[] = new char[8];
 	/*int pVals[][] = {
 			{10,5,10,5,15},
 			{15,11,20,5,10},
@@ -190,6 +192,44 @@ public class Main_Algorithm {
 		if(trueBest == false) {
 			System.out.println("No possible solution");
 		}
+		
+		
+		
+		
+	}
+	
+	public void conversionToChar() {
+		for(int i = 0; i < bestMatch.length; i++) {
+			if(bestMatch[i] == 1) {
+				charBestMatch[i] = 'A';
+			}
+			else if(bestMatch[i] == 2) {
+				charBestMatch[i] = 'B';
+			}
+			else if(bestMatch[i] == 3) {
+				charBestMatch[i] = 'C';
+			}
+			else if(bestMatch[i] == 4) {
+				charBestMatch[i] = 'D';
+			}
+			else if(bestMatch[i] == 5) {
+				charBestMatch[i] = 'E';
+			}
+			else if(bestMatch[i] == 6) {
+				charBestMatch[i] = 'F';
+			}
+			else if(bestMatch[i] == 7) {
+				charBestMatch[i] = 'G';
+			}
+			else if(bestMatch[i] == 8) {
+				charBestMatch[i] = 'H';
+			}
+		}
+		
+		System.out.print("Tasks: ");
+		for(int i = 0; i < charBestMatch.length; i++) {
+			System.out.print(charBestMatch[i] + " ");
+		}
 	}
 
 	public static void main(String[] args) {
@@ -199,5 +239,6 @@ public class Main_Algorithm {
 		main_Algorithm.branchBound(a);
 		System.out.println("Best real combo: " + Arrays.toString(main_Algorithm.bestMatch));
 		System.out.println("with penalty: " + main_Algorithm.currBest);
+		main_Algorithm.conversionToChar();
 	}
 }
