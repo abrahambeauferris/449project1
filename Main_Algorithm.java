@@ -1,4 +1,4 @@
-package input;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +16,7 @@ public class Main_Algorithm {
 	int tooNearHard[][] = {{4,5}, {4,1}};
 	int tooNearSoft[][] = {{4,1,1}, {1,2,5}};
 	char charBestMatch[] = new char[8];
+	String outputFile = "Outputtest.txt";
 	/*int pVals[][] = {
 			{10,5,10,5,15},
 			{15,11,20,5,10},
@@ -155,7 +156,7 @@ public class Main_Algorithm {
 	}
 	
 	//goes through a "tree" using arraylists and bounds bad subtrees
-	public void branchBound(ArrayList<Integer> a) {
+	public void branchBound(ArrayList<Integer> a) throws IOException {
 		
 		ArrayList<Integer> remaining = new ArrayList<Integer>();
 		for(int i = 0; i < tasks.size(); i++) {
@@ -191,11 +192,11 @@ public class Main_Algorithm {
 		}
 		if(trueBest == false) {
 			System.out.println("No possible solution");
+			currBest = -1;
 		}
-		
-		
-		
-		
+		conversionToChar();
+		Output o = new Output();
+		o.output(outputFile,currBest,charBestMatch);
 	}
 	
 	public void conversionToChar() {
@@ -225,20 +226,14 @@ public class Main_Algorithm {
 				charBestMatch[i] = 'H';
 			}
 		}
-		
-		System.out.print("Tasks: ");
-		for(int i = 0; i < charBestMatch.length; i++) {
-			System.out.print(charBestMatch[i] + " ");
-		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		Main_Algorithm main_Algorithm = new Main_Algorithm();
 		main_Algorithm.initalize();
 		main_Algorithm.branchBound(a);
 		System.out.println("Best real combo: " + Arrays.toString(main_Algorithm.bestMatch));
 		System.out.println("with penalty: " + main_Algorithm.currBest);
-		main_Algorithm.conversionToChar();
 	}
 }
