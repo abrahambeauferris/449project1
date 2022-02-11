@@ -97,6 +97,20 @@ public class Input {
     return false;
   }
   
+    public static boolean invalidMachineOrTask(String inputFilename) {
+    File file = new File(inputFilename);
+    try {
+      Scanner scan = new Scanner(file);
+      scan.findWithinHorizon("Name:\\s+[^\\s]+\\s+forced partial assignment:[ \\n\\t]+", 0);
+      String match = scan.findWithinHorizon("([^A-H1-8],[A-H]|[^1-8],[^A-H]|[1-8],[^A-H])", 0);
+      scan.close();
+      return match != null;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+  
   public static void parseInput(String inputFilename) {
 
     File file = new File(inputFilename);
