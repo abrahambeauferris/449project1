@@ -102,7 +102,7 @@ public class Input {
     try {
       Scanner scan = new Scanner(file);
       scan.findWithinHorizon("Name:\\s+[^\\s]+\\s+forced partial assignment:[ \\n\\t]+", 0);
-      String match = scan.findWithinHorizon("([^A-H1-8],[A-H]|[^1-8],[^A-H]|[1-8],[^A-H])", 0);
+      String match = scan.findWithinHorizon("(\\([^A-H1-8],[A-H]|\\([^1-8],[^A-H]|\\([1-8],[^A-H])", 0);
       scan.close();
       return match != null;
     } catch (FileNotFoundException e) {
