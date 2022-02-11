@@ -32,6 +32,18 @@ public class Main_Algorithm {
 	
 	
 	public void initalize() { 
+		
+		//PA error handling
+		for (int x = 0; x<forcedPartial.length;x++) {
+			for(int j = x+1; j<forcedPartial.length; j++) {
+					if ((forcedPartial[x][0] == forcedPartial[j][0]) || forcedPartial[x][1] == forcedPartial[j][1]) {
+					System.out.println("partial assignment error");
+					System.exit(0);
+				}
+			}
+		}
+			
+		//initial value
 		ArrayList<Integer> initCombo = new ArrayList<Integer>(tasks);
 		currBest = penaltyCalc(initCombo);
 		for (int i = 0; i < initCombo.size(); i++) {
@@ -181,7 +193,7 @@ public class Main_Algorithm {
 	}
 
 	public static void main(String[] args) {
-		ArrayList a = new ArrayList<Integer>();
+		ArrayList<Integer> a = new ArrayList<Integer>();
 		Main_Algorithm main_Algorithm = new Main_Algorithm();
 		main_Algorithm.initalize();
 		main_Algorithm.branchBound(a);
