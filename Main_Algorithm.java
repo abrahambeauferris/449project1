@@ -63,8 +63,8 @@ public class Main_Algorithm {
 		ArrayList<Integer> initCombo = new ArrayList<Integer>(tasks);
 		currBest = penaltyCalc(initCombo);
 		bestMatch = tasksAlt;
-		System.out.println("Initial combo: " + Arrays.toString(bestMatch));
-		System.out.println("with penalty: " + currBest);
+		//System.out.println("Initial combo: " + Arrays.toString(bestMatch));
+		//System.out.println("with penalty: " + currBest);
 		
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		branchBound(a);
