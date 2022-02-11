@@ -134,7 +134,16 @@ public class Input {
   }
 
   public static void main(String[] args) {
-    System.out.println(inputIsValid("input.txt"));
+    if (invalidTaskTooNearPenalties("input.txt")) {
+      System.out.println("Invalid task");
+      System.exit(0);
+
+    }
+    if (!inputIsValid("input.txt")) {
+      System.out.println("Error while parsing input file");
+      System.exit(0);
+
+    }
     parseInput("input.txt");
 
     // System.out.println("___________________________");
