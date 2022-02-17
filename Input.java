@@ -75,7 +75,7 @@ public class Input {
     try {
       Scanner scan = new Scanner(file);
       scan.findWithinHorizon("machine penalties:", 0);
-      String match = scan.findWithinHorizon("(-\\d|\\.\\d)", 0);
+      String match = scan.findWithinHorizon("(-\\d|\\.\\d|\\D\\))", 0);
       scan.close();
       return match != null;
     } catch (FileNotFoundException e) {
